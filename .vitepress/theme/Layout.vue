@@ -1,6 +1,6 @@
 <script setup>
 import { useData, useRoute } from 'vitepress';
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import ContentLayout from './contentLayout.vue';
 import index from './index.vue';
 import { widthMode } from './store';
@@ -8,7 +8,14 @@ import './style.css';
 
 const data = useData();
 const route = useRoute();
-widthMode.value = localStorage.getItem('width') ? localStorage.getItem('width') : 'standard';
+
+widthMode.value = 'standard';
+onMounted(() => {
+    const savedWidth = localStorage.getItem('width');
+    if (savedWidth) {
+        widthMode.value = savedWidth;
+    }
+});
 
 const widthModeString = computed(() => {
     switch (widthMode.value) {
@@ -39,7 +46,9 @@ const widthModeColor = computed(() => {
 const toggleWidth = () => {
     const modes = ['standard', 'narrow', 'wide', 'full'];
     widthMode.value = modes[modes.indexOf(widthMode.value) + 1] ? modes[modes.indexOf(widthMode.value) + 1] : 'standard';
-    localStorage.setItem('width', widthMode.value);
+    if (typeof window !== 'undefined') {
+        localStorage.setItem('width', widthMode.value);
+    }
 };
 </script>
 
