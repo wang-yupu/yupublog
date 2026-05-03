@@ -40,4 +40,4 @@ Fingerprint: `10FA 3707 9C13 79B0 A476  7CC5 1182 324C C847 DEA2`
 ## Git签名的Key ID
 
 `2026/4/17`以前的Git Commit签名将不再使用，新的Commit Key ID为：
-`1182324CC847DEA2`
+`0B878244A956D2C6`
